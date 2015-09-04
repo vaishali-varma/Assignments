@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class BatchForResponseFromGoogleTest {
 
     static testMethod void myUnitTest() {

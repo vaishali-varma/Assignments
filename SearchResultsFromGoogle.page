@@ -1,4 +1,4 @@
-<apex:page controller = "SearchResultFromGoogleController" tabStyle = "Account">
+ <apex:page controller = "SearchResultFromGoogleController" tabStyle = "Account">
     <apex:form id = "results">
         <apex:pageBlock>
         <apex:pageBlocksection>

@@ -1,4 +1,4 @@
-public with sharing class SearchQueryFromGoogleHandler {
+ public with sharing class SearchQueryFromGoogleHandler {
     public static string response;
     public static void initialiseQueryList(list<QueryFromMail__c> queryReceiverList)
     {

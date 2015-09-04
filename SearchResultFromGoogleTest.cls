@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class SearchResultFromGoogleTest {
 
     static testMethod void historyCheckTest() {

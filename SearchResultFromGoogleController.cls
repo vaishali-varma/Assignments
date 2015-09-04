@@ -1,4 +1,4 @@
-global with sharing class SearchResultFromGoogleController {
+ global with sharing class SearchResultFromGoogleController {
     
     public string query{get; set;}
     public list<Search_Result__c> resultsFromQuery;

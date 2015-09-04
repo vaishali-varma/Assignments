@@ -1,4 +1,4 @@
-@isTest
+﻿ @isTest
 global with sharing class MockClassForResponse implements HttpCalloutMock{
     public static HttpResponse respond(HttpRequest req)
     {

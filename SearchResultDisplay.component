@@ -1,4 +1,4 @@
-<apex:component controller="SearchResultDisplayController" access="global">
+ <apex:component controller="SearchResultDisplayController" access="global">
    <apex:attribute Name="queryId" type="Id" description="Id Of Query" assignTo="{!queryToGet}"/>
    <html>
     <body>

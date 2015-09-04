@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class PdfComponentTest {
 
     static testMethod void checkPdf() {

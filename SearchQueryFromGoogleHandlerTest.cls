@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class SearchQueryFromGoogleHandlerTest {
 
     static testMethod void ResponseTest() {

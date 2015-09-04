@@ -1,4 +1,4 @@
-public with sharing class BatchForResponseFromGoogle implements Database.Batchable<sObject>,Database.Stateful{
+ public with sharing class BatchForResponseFromGoogle implements Database.Batchable<sObject>,Database.Stateful{
 
     /*Gets the id from the junction object of email object and query object*/
     public Database.querylocator start(Database.BatchableContext BC)

@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class SearchResultDisplayControllerTest {
 
     static testMethod void searchResultDisplayTest() {

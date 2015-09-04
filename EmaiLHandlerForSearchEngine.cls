@@ -1,4 +1,4 @@
-global with sharing class EmaiLHandlerForSearchEngine implements Messaging.InboundEmailHandler {
+ global with sharing class EmaiLHandlerForSearchEngine implements Messaging.InboundEmailHandler {
 
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.InboundEmail email, Messaging.InboundEnvelope envelope) 
     {

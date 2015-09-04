@@ -1,4 +1,4 @@
-@isTest
+ @isTest
 private class EmailHandlerForSearchEngineTest {
 
     static testMethod void emailTestPositive() {

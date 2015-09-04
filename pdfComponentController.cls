@@ -1,4 +1,4 @@
-public with sharing class pdfComponentController {
+ public with sharing class pdfComponentController {
     public Id queryToGet{get; set;}
     public list<Search_Result__c> searchResultList = new list<Search_Result__c>();
     public list<Search_Result__c> getsearchResultList()
