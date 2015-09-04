@@ -1,0 +1,16 @@
+<apex:component controller="SearchResultDisplayController" access="global">
+   <apex:attribute Name="queryId" type="Id" description="Id Of Query" assignTo="{!queryToGet}"/>
+   <html>
+    <body>
+        <table border = "2" >
+            <apex:repeat value = "{!searchResultList}" var="table">
+                <tr >
+                    <td width = "30%">"{!table.Link_Detail__c}"</td>
+                    <td width = "30%">"{!table.Actual_Link__c}"</td>
+                    <td width = "40%">"{!table.Description__c}"</td>
+                </tr>
+            </apex:repeat>
+        </table>
+    </body>
+   </html>
+</apex:component>

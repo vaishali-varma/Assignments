@@ -1,0 +1,9 @@
+<apex:component  controller="pdfComponentController" access="global">
+    <apex:attribute Name="queryId" type="Id" description="Id Of Query" assignTo="{!queryToGet}"/>
+
+     <apex:repeat value = "{!searchResultList}" var="table">
+        <apex:outputText value = "{!table.Link_Detail__c}"/><br/>
+        <apex:outputText value = "{!table.Actual_Link__c}" style ="color : blue"/><br/>
+        <apex:outputText value = "{!table.Description__c}"/><br/>
+     </apex:repeat>
+</apex:component>

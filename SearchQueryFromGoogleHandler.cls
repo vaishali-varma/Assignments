@@ -1,4 +1,5 @@
 public with sharing class SearchQueryFromGoogleHandler {
+    public static string response;
     public static void initialiseQueryList(list<QueryFromMail__c> queryReceiverList)
     {
         list<String> getQueryResult = new list<String>();
@@ -11,6 +12,9 @@ public with sharing class SearchQueryFromGoogleHandler {
         } 
         searchQuery(getQueryResult);
     }
+    
+    /*Since the @future method takes primitive data as parameter hence list<string>
+      is passed as a parameter and the list contains the query whose response is to be fetched*/
     @future(callout=true)
     public static void searchQuery(List<String> listOfQuery)
     {
@@ -25,7 +29,7 @@ public with sharing class SearchQueryFromGoogleHandler {
             Http httpInstance = new Http(); 
             HttpResponse httpResponseInstance = new HttpResponse();
             httpResponseInstance = httpInstance.send(HttpRequestInstance);
-            string response = httpResponseInstance.getBody();
+            response = httpResponseInstance.getBody();
             system.debug('######### Response' +httpResponseInstance.getBody());
             /*string firstBlock = response.substringBetween('<li class="g"','</li>');
             system.debug('############# firstBlock : '+firstBlock);
@@ -38,6 +42,8 @@ public with sharing class SearchQueryFromGoogleHandler {
             string str;
             //response = response.replace('<a href="','LinkStart');
             //response = response.replace('$amp;','linkEnd');
+            response = response.replace('<a href="/url?q=', 'LinkStart[');
+            response = response.replace('&amp;sa=U&amp;ved=', ']LinkEnd <a href="/url?q=');
             response = response.replace('<cite>','ActualLink[');
              response = response.replace('</cite>',']ActualLinkend DetailStart[ '); 
              response = response.replace('</div></li>', ']DetailEnd');
@@ -52,38 +58,30 @@ public with sharing class SearchQueryFromGoogleHandler {
              strList.remove(0);
              strList.remove(strList.size()-1);
             system.debug('###### strlist'+strList);
+            
             QueryFromMail__c RecordThatContainsQuery =[
-                SELECT Name 
+                SELECT Name,Sender_Address__c
                   FROM QueryFromMail__c 
                  WHERE Name = :queryListInstance];
-            list<Search_Result__c> searchResultList = [
-                SELECT Actual_Link__c 
-                  FROM Search_Result__c];
-                  
+
             list<Search_Result__c> newSearchResultList = new list<Search_Result__c>();
             for(string stringInstance : strList)
             {
-                for(Search_Result__c searchInstance : searchResultList)
-                {   
-                    string link = stringInstance.substringBetween('ActualLink[',']ActualLinkend DetailStart[');  
-                    if(!(searchInstance.Actual_Link__c.equalsIgnoreCase(link)))
-                    {
-                        Search_Result__c searchResultInstance = new Search_Result__c();
-                        searchResultInstance.Actual_Link__c = stringInstance.substringBetween('ActualLink[',']ActualLinkend DetailStart[');
-                        system.debug('#############searchResultInstance.Actual_Link__c : '+searchResultInstance.Actual_Link__c);
+                Search_Result__c searchResultInstance = new Search_Result__c();
+                searchResultInstance.Actual_Link__c = stringInstance.substringBetween('LinkStart[',']LinkEnd');
+                system.debug('#############searchResultInstance.Actual_Link__c : '+searchResultInstance.Actual_Link__c);
                         
-                        searchResultInstance.Link_Detail__c = stringInstance.substringBefore('ActualLink[');
-                        system.debug('#############searchResultInstance.Link_Detail__c : '+searchResultInstance.Link_Detail__c);
+                searchResultInstance.Link_Detail__c = stringInstance.substringBetween(']LinkEnd','ActualLink[');
+                system.debug('#############searchResultInstance.Link_Detail__c : '+searchResultInstance.Link_Detail__c);
 
-                        searchResultInstance.Description__c = stringInstance.substringBetween('DetailStart[',']');
-                        system.debug('#############searchResultInstance.Description__c : '+searchResultInstance.Description__c);
+                searchResultInstance.Description__c = stringInstance.substringBetween('DetailStart[',']');
+                system.debug('#############searchResultInstance.Description__c : '+searchResultInstance.Description__c);
                 
-                        searchResultInstance.QueryFromMail__c = RecordThatContainsQuery.Id;
-                        system.debug('searchResultInstance.QueryFromMail__c'+searchResultInstance.QueryFromMail__c);
-                        newSearchResultList.add(searchResultInstance);
-                    }
-                }
-            }
+                searchResultInstance.QueryFromMail__c = RecordThatContainsQuery.Id;
+                searchResultInstance.Sender_Email__c = RecordThatContainsQuery.Sender_Address__c;
+                system.debug('searchResultInstance.QueryFromMail__c'+searchResultInstance.QueryFromMail__c);
+                newSearchResultList.add(searchResultInstance);
+            } 
             insert newSearchResultList;
         }
     }
