@@ -6,15 +6,22 @@
  *  @author  Vaishali Varma
 */
 public with sharing class SalesRepresentativeController {
-    public string owner {get; set;}
+    //displaying the list of user with role sales representatives.
     public list<selectOption> listOfOwner;
+
+    //for displaying the list of leads assigned to representatives.
     public list<Lead> leadList {get; set;}
     public boolean renderpb{get; set;}
+    public string owner {get; set;}
+
+    //Constructor
     public SalesRepresentativeController()
     {
         leadList = new list<Lead>();
         renderpb = false;
     }
+
+    //Displaying the list of owner that have roles as sales representatives
     public list<selectOption> getlistOfOwner()
     {
         listOfOwner = new list<selectOption>();
@@ -25,12 +32,19 @@ public with sharing class SalesRepresentativeController {
         }
         return listOfOwner;
     }
+
+    //Displaying the list of leads assigned to the sales representative
     public void actionMethod()
     {
         system.debug('owner'+owner);
         system.debug('In action Method');
         renderpb = true;
-        leadList = [SELECT Name,Company,Email,LeadSource FROM Lead WHERE Owner.Name = :owner];
+        leadList = [SELECT Name
+                          , Company
+                          , Email
+                          , LeadSource 
+                       FROM Lead 
+                      WHERE Owner.Name = :owner];
         system.debug('leadList@@'+leadList);
     }
 }

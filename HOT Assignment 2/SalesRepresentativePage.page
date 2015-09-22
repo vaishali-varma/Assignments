@@ -33,14 +33,14 @@
                 </apex:outputPanel>
                 </apex:pageBlockSection>
             </apex:pageBlock>
-            <apex:outputPanel id = "panel" > 
-            <apex:pageBlock rendered = "{!renderpb}"><br/>
-                <apex:pageBlockTable styleclass = "table" value = "{!leadList}" var = "leadInstance">
-                    <apex:column styleclass = "table" value = "{!leadInstance.Name}"/>
-                    <apex:column styleclass = "table" value = "{!leadInstance.Company}"/>
-                    <apex:column styleclass = "table" value = "{!leadInstance.Email}"/>
-                    <apex:column styleclass = "table" value = "{!leadInstance.LeadSource}"/>
-                </apex:pageBlockTable>
+            <apex:outputPanel id = "panel" >
+                <apex:pageBlock id = "pb2" rendered = "{!renderpb}"><br/>
+                    <apex:pageBlockTable id= "pbt" styleclass = "table" value = "{!leadList}" var = "leadInstance">
+                        <apex:column styleclass = "table" value = "{!leadInstance.Name}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.Company}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.Email}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.LeadSource}"/>
+                    </apex:pageBlockTable>
                 </apex:pageBlock>
             </apex:outputPanel>
         </div>

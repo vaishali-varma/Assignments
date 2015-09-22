@@ -1,3 +1,10 @@
+/**
+ *  The test class of the controller of sales representative page 
+ *  that displays the list of lead of particular owner.
+ *
+ *  Class : SalesRepresentativeTest
+ *  @author  Vaishali Varma
+*/
 @isTest(seealldata = true)
 private class SalesRepresentativeTest {
     
@@ -29,7 +36,7 @@ private class SalesRepresentativeTest {
 
         test.startTest();
         insert leadInstance;
-
+        test.stopTest();
         PageReference pageref = page.SalesRepresentativePage;
         Test.setCurrentPage(pageRef);
         SalesRepresentativeController controller = new SalesRepresentativeController();
