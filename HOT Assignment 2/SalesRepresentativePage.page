@@ -1,0 +1,48 @@
+<apex:page controller = "SalesRepresentativeController" sidebar = "false" showHeader="false" standardstylesheets = "false">
+    <style>
+        .label
+        {
+            font-size : 40px;
+            font-color : black;
+            font-align : center;
+        }
+        .table
+        {
+            border : 1px black solid;
+            cellpading : 1px;
+            border-collapse : collapse;
+            background-color : #eef;
+        }
+    </style>
+    <apex:form id = "form">
+        <div align = "center">
+            <apex:pageBlock id="pb">
+                <apex:outputLabel styleclass = "label" value = "Leads Assigned To Sales Representatives"/><br/><br/>
+                <apex:pageBlockSection columns = "1">
+                <apex:outputPanel ><center>
+                    <apex:outputLabel value = "Sales Representatives"/>&nbsp;&nbsp;
+                    <apex:selectList value= "{!owner}" size="1" title="Sales Representatives">
+                        <apex:selectOptions value = "{!listOfOwner}"/>
+                        <apex:actionSupport event="onchange" reRender = "panel" action = "{!actionMethod}" status = "loadquery"/>
+                        <apex:actionStatus startText="Loading" id="loadquery">
+                            <apex:facet name="start">
+                                <apex:image URL="{!$Resource.Loading_Data}" width="40" height="40"/>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </apex:selectList> </center>
+                </apex:outputPanel>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <apex:outputPanel id = "panel" >
+                <apex:pageBlock id = "pb2" rendered = "{!renderpb}"><br/>
+                    <apex:pageBlockTable id= "pbt" styleclass = "table" value = "{!leadList}" var = "leadInstance">
+                        <apex:column styleclass = "table" value = "{!leadInstance.Name}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.Company}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.Email}"/>
+                        <apex:column styleclass = "table" value = "{!leadInstance.LeadSource}"/>
+                    </apex:pageBlockTable>
+                </apex:pageBlock>
+            </apex:outputPanel>
+        </div>
+    </apex:form>
+</apex:page>

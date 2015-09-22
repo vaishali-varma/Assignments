@@ -1,0 +1,64 @@
+<apex:page showHeader="false" sideBar="false">
+    <apex:image url="{!URLFOR($Resource.WebToLeadImage)}" width="100%" height="200px" style="imagealign"/>
+    <apex:stylesheet value="{!URLFOR($Resource.WebToLeadStyle, '/WebToLead/WebToLeadStyle.css')}"/>
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"></meta>
+    <br/><br/>
+    <div style="width:400px; margin-right:auto; margin-left:auto; border:1px solid #000;" >
+        <form action="https://www.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" onSubmit="return valid();">
+            <input type="hidden" name="oid" value="00D28000000fnWf"/>
+            <input type="hidden" name="retURL" value="http://myorg2-developer-edition.ap2.force.com/webtolead"/>
+            <apex:pageBlock >
+                <label class = "label_class">Fill in the following details</label><br/><br/> 
+                <!--  ----------------------------------------------------------------------  -->
+                <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+                <!--  these lines if you wish to test in debug mode.                          -->
+                <!--  <input type="hidden" name="debug" value=1>                              -->
+                <!--  <input type="hidden" name="debugEmail"                                  -->
+                <!--  value="vaishalivarma11@gmail.com">                                      -->
+                <!--  ----------------------------------------------------------------------  -->
+
+                <label class = "standard_label_style" for="first_name">First Name</label><input  id="first_name" maxlength="40" name="first_name" size="20" type="text" required="true" pattern = "[a-zA-Z]*" placeholder="Enter a name"/><br/><br/>
+                <label class = "standard_label_style" for="last_name">Last Name</label><input  id="last_name" maxlength="80" name="last_name" size="20" type="text" required="true"  pattern = "[a-zA-Z]*" placeholder="Enter a name"/><br/><br/>
+                <label class = "standard_label_style" for="email">Email</label><input  id="email" maxlength="100" name="email" size="20" type="email" required="true" pattern = "[a-zA-Z0-9@#$%^&*.]*@[a-zA-Z0-9.-]*.[a-zA-Z]*" placeholder="Enter a valid email address"/><br/><br/>
+                <label class = "standard_label_style" for="company">Company</label><input  id="company" maxlength="40" name="company" size="20" type="text" required="true" placeholder="Enter company name"/><br/><br/>
+                <label class = "standard_label_style" for="city">City</label><input  id="city" maxlength="40" name="city" size="20" type="text" required="true" placeholder="Enter city"/><br/><br/>
+                <label class = "standard_label_style" for="state">State/Province</label><input  id="state" maxlength="20" name="state" size="20" type="text" required="true" placeholder="Enter state"/><br/><br/>
+
+                <label class = "standard_label_style" for="lead_source" >Lead Source</label>
+                <select id="lead_source" name="lead_source" required="true" >
+                    <option value="">--None--</option>
+                    <option value="Web">Web</option>
+                    <option value="Phone Inquiry">Phone Inquiry</option>
+                    <option value="Partner Referral">Partner Referral</option>
+                    <option value="Purchased List">Purchased List</option>
+                    <option value="Other">Other</option>
+                    <option value="Banner">Banner</option>
+                    <option value="Media">Media</option>
+                    <option value="Email">Email</option>
+                    <option value="Word-Of-Mouth">Word-Of-Mouth</option>
+                </select><br/><br/>
+                <label class = "standard_label_style" for="Campaign_ID">Campaign</label>
+                <select  id="Campaign_ID" name="Campaign_ID" required="true">
+                    <option value="">--None--</option>
+                    <option value="701280000005OlB">ABC Containers Product Webinar</option>
+                    <option value="701280000005Ol6">ABC Containers Meet</option>
+                </select><br/><br/>
+                <input type="submit" id = "submitmessage" name="submit" />
+                <input type="reset" id = "reset" name="reset"/>
+             </apex:pageBlock>
+        </form>
+    </div>
+    <script type = "text/javascript">
+        function valid()
+        {
+            if(document.getElementById("Campaign_ID").selectedIndex === 0 || document.getElementById("lead_source").selectedIndex === 0)
+            {
+                alert("Please select value"); // prompt user
+                document.getElementById("Campaign_ID").focus(); //set focus back to control
+                document.getElementById("lead_source").focus();
+                return false;
+            }
+            alert('Thank You!!! Your Information has been successfully submitted!!!');
+        }
+    </script>
+</apex:page>
